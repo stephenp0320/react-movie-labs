@@ -46,9 +46,14 @@ const HomePage = (props) => {
       </Grid>
       <Grid container sx={{flex: "1 1 500px"}}>
         <Grid key="find" size={{xs: 12, sm: 6, md: 4, lg: 3, xl: 2}} sx={{padding: "20px"}}>
-          <FilterCard />
+        <FilterCard
+      onUserInput={handleChange}
+      titleFilter={nameFilter}
+      genreFilter={genreFilter}
+    />
         </Grid>
-        <MovieList movies={movies}></MovieList>
+        <MovieList movies={displayedMovies} />
+
       </Grid>
     </Grid>
   );
