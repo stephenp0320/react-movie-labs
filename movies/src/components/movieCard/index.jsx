@@ -10,15 +10,37 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import IconButton from "@mui/material/IconButton";
-import {Grid} from "@mui/material";
+import { Grid } from "@mui/material";
 import img from '/Users/stephenpower/Desktop/year4/web_app_two/react-movie-labs/movies/src/components/images/film-poster-placeholder.png'
 import { Link } from "react-router";
+import Avatar from '@mui/material/Avatar';
+
 
 export default function MovieCard(props) {
   const movie = props.movie;
+  const handleAddToFavorite = (e) => {
+    e.preventDefault();
+    props.selectFavorite(movie.id);
+  };
+
+
   return (
     <Card>
-      <CardHeader title={movie.title} sx={{ textWrap: "nowrap"}}/>
+      <CardHeader
+        avatar={
+          movie.favorite ? (
+            <Avatar sx={{ backgroundColor: 'red' }}>
+              <FavoriteIcon />
+            </Avatar>
+          ) : null
+        }
+        title={
+          <Typography variant="h5" component="p">
+            {movie.title}{" "}
+          </Typography>
+        }
+      />
+
       <CardMedia
         sx={{ height: 500 }}
         image={
@@ -29,13 +51,13 @@ export default function MovieCard(props) {
       />
       <CardContent>
         <Grid container>
-          <Grid size={{xs: 6}}>
+          <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
               {movie.release_date}
             </Typography>
           </Grid>
-          <Grid size={{xs: 6}}>
+          <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <StarRateIcon fontSize="small" />
               {"  "} {movie.vote_average}{" "}
@@ -44,18 +66,19 @@ export default function MovieCard(props) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites" onClick={null}>
-          <FavoriteIcon color="primary" fontSize="large" />
-        </IconButton>
-        
+      <IconButton aria-label="add to favorites" onClick={handleAddToFavorite}>
+        <FavoriteIcon color="primary" fontSize="large" />
+    </IconButton>
+
+
         <Link to={`/movies/${movie.id}`}>
           <Button variant="outlined" size="medium" color="primary">
             More Info ...
           </Button>
         </Link>
-      
-      
-      
+
+
+
       </CardActions>
     </Card>
   );
