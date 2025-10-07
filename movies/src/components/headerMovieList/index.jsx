@@ -4,6 +4,8 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import { useNavigate } from "react-router";
+
 
 const Header = (props) => {
   const title = props.title
