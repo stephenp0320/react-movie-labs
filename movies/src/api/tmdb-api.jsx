@@ -109,3 +109,19 @@ export const getMovieImages = ({ queryKey }) => {
     });
 
   };
+
+  export const getPopularMovies = (page = 1) => {
+    return fetch(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
+    ).then((responce) => {
+      if (!responce.ok) {
+        return responce.json().then((error) => {
+          throw new Error(error.status_message);
+        });
+      }
+      return responce.json();
+    }).catch((error) => {
+      throw error;
+    });
+
+  };
