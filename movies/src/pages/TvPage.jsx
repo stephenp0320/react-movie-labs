@@ -32,6 +32,7 @@ const TvPage = (props) => {
     <PageTemplate
       title="Tv Shows"
       movies={movies}
+      isTv={true}
       action={(movie) => {
         return <AddToPlaylistIcon movie={movie} />
       }}

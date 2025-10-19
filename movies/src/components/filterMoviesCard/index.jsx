@@ -9,7 +9,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import img from '/Users/stephenpower/Desktop/year4/web_app_two/react-movie-labs/movies/src/components/images/pexels-dziana-hasanbekava-5480827.jpg'
-import { getGenres } from "../../api/tmdb-api";
+import { getGenres, getTvGenres } from "../../api/tmdb-api";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
 
@@ -23,9 +23,12 @@ const formControl =
 
 export default function FilterMoviesCard(props) {
 
+    const {isTv = false} = props;
     const { data, error, isPending, isError } = useQuery({
         queryKey: ['genres'],
         queryFn: getGenres,
+        queryKey: [isTv ? "tvGenres" : "movieGenres"],
+        queryFn: () => (isTv ? getTvGenres() : getGenres()),
       });
     
       if (isPending) {
@@ -63,7 +66,7 @@ export default function FilterMoviesCard(props) {
             <CardContent>
                 <Typography variant="h5" component="h1">
                     <SearchIcon fontSize="large" />
-                    Filter the movies.
+                    Filter {isTv ? "TV Shows" : "Movies"}
                 </Typography>
                 <TextField
                     sx={{ ...formControl }}
