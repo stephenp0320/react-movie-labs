@@ -13,12 +13,14 @@ import AddMovieReviewPage from './pages/addMovieReviewPage'
 import UpcomingMoviesPage from "./pages/upcomingMoviesPage";
 import PopularMoviesPage from "./pages/popularMoviesPage";
 import TvPage from "./pages/TvPage";
+import OnAirPage from "./pages/onAirPage";
+
 
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 360000,
-      refetchInterval: 360000, 
+      refetchInterval: 360000,
       refetchOnWindowFocus: false
     },
   },
@@ -34,14 +36,15 @@ const App = () => {
         <MoviesContextProvider>
           <Routes>
             <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/reviews/:id" element={ <MovieReviewPage /> } />
+            <Route path="/reviews/:id" element={<MovieReviewPage />} />
             <Route path="/movies/:id" element={<MoviePage />} />
             <Route path="/" element={<HomePage />} />
-            <Route path="*" element={ <Navigate to="/" /> } />
-            <Route path="/reviews/form" element={ <AddMovieReviewPage /> } />
+            <Route path="*" element={<Navigate to="/" />} />
+            <Route path="/reviews/form" element={<AddMovieReviewPage />} />
             <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-            <Route path="/movies/popular" element={<PopularMoviesPage/>} />
-            <Route path="/movies/tv" element={<TvPage/>} />
+            <Route path="/movies/popular" element={<PopularMoviesPage />} />
+            <Route path="/movies/tv" element={<TvPage />} />
+            <Route path="/movies/air" element={<OnAirPage />} />
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>
@@ -52,5 +55,5 @@ const App = () => {
 
 
 
-const rootElement = createRoot( document.getElementById("root") )
+const rootElement = createRoot(document.getElementById("root"))
 rootElement.render(<App />);

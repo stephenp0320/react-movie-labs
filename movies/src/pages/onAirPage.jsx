@@ -1,16 +1,16 @@
 import React from "react";
-import { getTv } from "../api/tmdb-api";
+import { getOnAir } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
 
 
-const TvPage = (props) => {
+const OnAirPagePage = (props) => {
 
   const { data, error, isPending, isError } = useQuery({
-    queryKey: ['tv'],
-    queryFn: () => getTv(1),
+    queryKey: ['air'],
+    queryFn: () => getOnAir(1),
   })
 
   if (isPending) {
@@ -30,9 +30,8 @@ const TvPage = (props) => {
 
   return (
     <PageTemplate
-      title="Tv Shows"
+      title="On Air"
       movies={movies}
-      isTv={true}
       action={(movie) => {
         return <AddToPlaylistIcon movie={movie} />
       }}
@@ -40,4 +39,4 @@ const TvPage = (props) => {
   );
 
 };
-export default TvPage;
+export default OnAirPagePage;
