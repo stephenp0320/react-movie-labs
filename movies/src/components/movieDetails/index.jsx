@@ -22,7 +22,7 @@ const root = {
 };
 const chip = { margin: 0.5 };
 
-const MovieDetails = ({ movie }) => {
+const MovieDetails = ({ movie, credits }) => {
     const [drawerOpen, setDrawerOpen] = useState(false);
 
 
@@ -72,6 +72,15 @@ const MovieDetails = ({ movie }) => {
                 )}
             </Paper>
 
+
+            <Paper component="ul" sx={{ ...root }}>
+                <Chip label={`Directors `} color="primary" />
+                {credits && credits.crew && (
+                    <Chip
+                        label={credits.crew.find((m) => m.job === "Director")?.name || "N/A"}
+                    />
+                )}
+            </Paper>
 
 
             <Fab

@@ -78,6 +78,13 @@ export default function MovieCard({ movie, action }) {
             </Typography>
           </Grid>
 
+          <Grid size={{ xs: 6 }}>
+            <Typography variant="h6" component="p">
+              <ExplicitIcon fontSize="small" />
+              {movie.credit}
+            </Typography>
+          </Grid>
+
 
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
