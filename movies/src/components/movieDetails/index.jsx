@@ -83,6 +83,17 @@ const MovieDetails = ({ movie, credits }) => {
             </Paper>
 
 
+            <Paper component="ul" sx={{ ...root }}>
+                <Chip label={`Streaming providers `} color="primary" />
+                {credits && credits.crew && (
+                    <Chip
+                        label={credits.crew.find((m) => m.job === "Providers")?.name || "N/A"}
+                    />
+                )}
+            </Paper>
+
+
+
             <Fab
                 color="secondary"
                 variant="extended"
