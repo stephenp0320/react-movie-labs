@@ -25,14 +25,15 @@ const root = {
 const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie, credits }) => {
+    //fixed issue with similar movies not displaying
     const [similarMovies, setSimilarMovies] = useState([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     useEffect(() => {
         if (movie.id) {
-            getSimilar({ queryKey: ["similar", { id: movie.id }] })
+            getSimilar({ queryKey: ["similar", { id: movie.id }] }) //calls getSimilar function to find similr movies
                 .then((data) => {
-                    setSimilarMovies(data.results); // Update state with fetched similar movies
+                    setSimilarMovies(data.results); //results from the api response
                 })
                 .catch((error) => {
                     console.error("Error fetching similar movies:", error);
