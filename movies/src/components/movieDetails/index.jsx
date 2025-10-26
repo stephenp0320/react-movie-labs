@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
-import { getSimilar } from "../../api/tmdb-api";
+import { getAlternativeTitles, getSimilar } from "../../api/tmdb-api";
 import { useEffect } from "react";
 
 
@@ -27,6 +27,7 @@ const chip = { margin: 0.5 };
 const MovieDetails = ({ movie, credits }) => {
     //fixed issue with similar movies not displaying
     const [similarMovies, setSimilarMovies] = useState([]);
+    const [alternativeTitles, setAlternativeTitles] = useState([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     useEffect(() => {
@@ -40,6 +41,21 @@ const MovieDetails = ({ movie, credits }) => {
                 });
         }
     }, [movie.id]);
+
+
+    useEffect(() => {
+        if (movie.id) {
+            getAlternativeTitles({ queryKey: ["alternativeTtiles", { id: movie.id }] }) //calls getSimilar function to find similr movies
+                .then((data) => {
+                    setAlternativeTitles(data.results); //results from the api response
+                })
+                .catch((error) => {
+                    console.error("Error fetching similar movies:", error);
+                });
+        }
+    }, [movie.id]);
+
+
 
     return (
         <>
@@ -104,6 +120,17 @@ const MovieDetails = ({ movie, credits }) => {
                     <Chip
                         label={credits.crew.find((m) => m.job === "Providers")?.name || "N/A"}
                     />
+                )}
+            </Paper>
+
+            <Paper component="ul" sx={{ ...root }}>
+                <Chip label={`Alternative Titles`} color="primary" />
+                {alternativeTitles && alternativeTitles.length > 0 ? (
+                    alternativeTitles.map((alternativeTitles) => (
+                        <Chip key={alternativeTitles.id} label={alternativeTitles.title} />
+                    ))
+                ) : (
+                    <Chip label="No alternative titles found" />
                 )}
             </Paper>
 
