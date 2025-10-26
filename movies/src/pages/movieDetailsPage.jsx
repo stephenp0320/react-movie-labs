@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from 'react-router';
 import MovieDetails from "../components/movieDetails/";
 import PageTemplate from "../components/templateMoviePage";
-import { getMovie, getMovieCredits, getStreamingProviders } from '../api/tmdb-api'
+import { getMovie, getMovieCredits, getStreamingProviders, getSimilar } from '../api/tmdb-api'
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner'
 
@@ -24,16 +24,23 @@ const MoviePage = (props) => {
     queryFn: getStreamingProviders,
   })
 
+  
+  const { data: similarData, similarError, similarIsPending, similarIsError  } = useQuery({
+    queryKey: ['similarMovie', {id: id}],
+    queryFn: getSimilar,
+  })
 
+ 
   //refactored this code to make it cleaner
-  if(isPending || creditsIsPending || providerIsPending) {
+  if(isPending || creditsIsPending || providerIsPending || similarIsPending ) {
     return <Spinner />;
   }
 
 
-const Error = error || creditsError || providerError;
+const Error = error || creditsError || providerError || similarError;
 
-  if(isError || creditsIsError || providerIsError) {
+
+  if(isError || creditsIsError || providerIsError || similarIsError ) {
     return <h1>{Error.message}</h1>;
   }
 
@@ -44,7 +51,7 @@ const Error = error || creditsError || providerError;
       {movie ? (
         <>
           <PageTemplate movie={movie}>
-            <MovieDetails movie={movie} credits={creditsData} provider={providerData} />
+            <MovieDetails movie={movie} credits={creditsData} provider={providerData} similar={similarData} />
           </PageTemplate>
         </>
       ) : (

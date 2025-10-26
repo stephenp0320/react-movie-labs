@@ -9,6 +9,8 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
+import { getSimilar } from "../../api/tmdb-api";
+import { useEffect } from "react";
 
 
 
@@ -23,8 +25,20 @@ const root = {
 const chip = { margin: 0.5 };
 
 const MovieDetails = ({ movie, credits }) => {
+    const [similarMovies, setSimilarMovies] = useState([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
+    useEffect(() => {
+        if (movie.id) {
+            getSimilar({ queryKey: ["similar", { id: movie.id }] })
+                .then((data) => {
+                    setSimilarMovies(data.results); // Update state with fetched similar movies
+                })
+                .catch((error) => {
+                    console.error("Error fetching similar movies:", error);
+                });
+        }
+    }, [movie.id]);
 
     return (
         <>
@@ -89,6 +103,20 @@ const MovieDetails = ({ movie, credits }) => {
                     <Chip
                         label={credits.crew.find((m) => m.job === "Providers")?.name || "N/A"}
                     />
+                )}
+            </Paper>
+
+
+
+
+            <Paper component="ul" sx={{ ...root }}>
+                <Chip label={`Similar Movies`} color="primary" />
+                {similarMovies.length > 0 ? (
+                    similarMovies.map((similarMovie) => (
+                        <Chip key={similarMovie.id} label={similarMovie.title} />
+                    ))
+                ) : (
+                    <Chip label="No similar movies found" />
                 )}
             </Paper>
 
