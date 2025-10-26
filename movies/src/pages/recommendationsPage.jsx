@@ -8,9 +8,13 @@ import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
 
 const RecommendationsPage = (props) => {
 
+    const {id} = useParams();
+    const num_id = Number(id);
+
   const { data, error, isPending, isError  } = useQuery({
-    queryKey: ['recommendations'],
-    queryFn: () => getRecommendations(1),
+    queryKey: ['recommendations', num_id],
+    queryFn: () => getRecommendations(num_id),
+    enabled: Number.isFinite(num_id) && num_id > 0 //only runs this query if num_id is valid num greater than 0
   })
   
   if (isPending) {

@@ -223,9 +223,11 @@ export const getMovieImages = ({ queryKey }) => {
   //https://api.themoviedb.org/3/movie/{movie_id}/recommendations
 
 
-  export const getRecommendations = () => {
+  export const getRecommendations = (id, page = 1) => {
+    //error handling added here
+    if (!id) throw new Error("issue with movie id");
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+      `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
