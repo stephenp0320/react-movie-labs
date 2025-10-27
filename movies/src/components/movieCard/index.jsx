@@ -10,6 +10,7 @@ import Typography from "@mui/material/Typography";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import IconButton from "@mui/material/IconButton";
 import { Grid } from "@mui/material";
 import img from '/Users/stephenpower/Desktop/year4/web_app_two/react-movie-labs/movies/src/components/images/film-poster-placeholder.png'
@@ -78,17 +79,17 @@ export default function MovieCard({ movie, action }) {
             </Typography>
           </Grid>
 
-          <Grid size={{ xs: 6 }}>
+          {/* <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <ExplicitIcon fontSize="small" />
               {movie.credit}
             </Typography>
-          </Grid>
+          </Grid> */}
 
 
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
-              <StarRateIcon fontSize="small" />
+              <ThumbUpIcon fontSize="small" />
               {"  "} {Math.round(movie.vote_average * 10)}{"%"}
             </Typography>
           </Grid>

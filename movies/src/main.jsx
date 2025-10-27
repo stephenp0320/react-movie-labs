@@ -16,6 +16,9 @@ import TvPage from "./pages/TvPage";
 import OnAirPage from "./pages/onAirPage";
 import RecommendationsPage from "./pages/recommendationsPage";
 import NowPlaying from "./pages/nowPlaying";
+import theme from "./theme";
+import { ThemeProvider } from "@mui/material/styles";
+import CssBaseline from "@mui/material/CssBaseline";
 
 
 const queryClient = new QueryClient({
@@ -33,6 +36,8 @@ const queryClient = new QueryClient({
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+      <CssBaseline />
       <BrowserRouter>
         <SiteHeader />
         <MoviesContextProvider>
@@ -53,6 +58,7 @@ const App = () => {
         </MoviesContextProvider>
       </BrowserRouter>
       <ReactQueryDevtools initialIsOpen={false} />
+      </ThemeProvider>
     </QueryClientProvider>
   );
 };
