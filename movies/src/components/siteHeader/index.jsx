@@ -16,6 +16,8 @@ const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const [movieMenuAnchor, setMovieMenuAnchor] = useState(null);
+
   const open = Boolean(anchorEl);
 
   const theme = useTheme();
@@ -28,14 +30,19 @@ const SiteHeader = () => {
     { label: "Favorites", path: "/movies/favorites" },
     { label: "Upcoming", path: "/movies/upcoming" },
     { label: "Popular", path: "/movies/popular" },
+  ];
+
+
+  const subMenuOptions = [
     { label: "Now Playing", path: "/movies/nowplaying" },
     { label: "Tv", path: "/movies/Tv" },
     { label: "On Air", path: "/movies/air" },
     { label: "Recommendations", path: "/movies/:id/recommendations" },
-  ];
+  ]
 
   const handleMenuSelect = (pageURL) => {
     setAnchorEl(null);
+    setMovieMenuAnchor(null);
     navigate(pageURL);
   };
 
@@ -43,6 +50,9 @@ const SiteHeader = () => {
     setAnchorEl(event.currentTarget);
   };
 
+  const handleOpenMovieMenu = (event) => setMovieMenuAnchor(event.currentTarget);
+  const handleCloseMovieMenu = () => setMovieMenuAnchor(null);
+    
   return (
     <>
       <AppBar position="fixed" color="secondary">
@@ -53,6 +63,7 @@ const SiteHeader = () => {
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Explore, Discover, and Rate Movies
           </Typography>
+
           {isMobile ? (
             <>
               <IconButton
@@ -67,23 +78,15 @@ const SiteHeader = () => {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right",
-                }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                {menuOptions.map((opt) => (
-                  <MenuItem
-                    key={opt.label}
-                    onClick={() => handleMenuSelect(opt.path)}
-                  >
+                {/* added a side bar to the nav */}
+                {[...menuOptions, ...subMenuOptions].map((opt) => (
+                  <MenuItem key={opt.label} onClick={() => handleMenuSelect(opt.path)}>
                     {opt.label}
                   </MenuItem>
                 ))}
@@ -100,6 +103,23 @@ const SiteHeader = () => {
                   {opt.label}
                 </Button>
               ))}
+
+              {/*https://mui.com/material-ui/react-menu/*/}
+              {/* added a drop down menu */}
+              <Button color="inherit" onClick={handleOpenMovieMenu}>
+                <MenuIcon>Movies</MenuIcon>
+              </Button>
+              <Menu
+                anchorEl={movieMenuAnchor}
+                open={Boolean(movieMenuAnchor)}
+                onClose={handleCloseMovieMenu}
+              >
+                {subMenuOptions.map((opt) => (
+                  <MenuItem key={opt.label} onClick={() => handleMenuSelect(opt.path)}>
+                    {opt.label}
+                  </MenuItem>
+                ))}
+              </Menu>
             </>
           )}
         </Toolbar>
