@@ -9,7 +9,7 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
-import { getAlternativeTitles, getSimilar } from "../../api/tmdb-api";
+import { getAlternativeTitles, getSimilar, getKeyword } from "../../api/tmdb-api";
 import { useEffect } from "react";
 
 
@@ -28,6 +28,7 @@ const MovieDetails = ({ movie, credits }) => {
     //fixed issue with similar movies not displaying
     const [similarMovies, setSimilarMovies] = useState([]);
     const [alternativeTitles, setAlternativeTitles] = useState([]);
+    const [keyword, setKeyword] = useState([]);
     const [drawerOpen, setDrawerOpen] = useState(false);
 
     useEffect(() => {
@@ -45,16 +46,27 @@ const MovieDetails = ({ movie, credits }) => {
 
     useEffect(() => {
         if (movie.id) {
-            getAlternativeTitles({ queryKey: ["alternativeTtiles", { id: movie.id }] }) //calls getSimilar function to find similr movies
+            getAlternativeTitles({ queryKey: ["alternativeTtiles", { id: movie.id }] })
                 .then((data) => {
-                    setAlternativeTitles(data.results); //results from the api response
+                    setAlternativeTitles(data.results);
                 })
                 .catch((error) => {
-                    console.error("Error fetching similar movies:", error);
-                });
+                    console.error("Error fetching alternative titles:", error);
+                }); 
         }
     }, [movie.id]);
 
+    useEffect(() => {
+        if (movie.id) {
+            getKeyword({ queryKey: ["keywords", { id: movie.id }] })
+                .then((data) => {
+                    setKeyword(data); //results from the api response
+                })
+                .catch((error) => {
+                    console.error("Error fetching keywords:", error);
+                });
+        }
+    }, [movie.id]);
 
 
     return (
@@ -113,6 +125,15 @@ const MovieDetails = ({ movie, credits }) => {
                 )}
             </Paper>
 
+            <Paper component="ul" sx={{ ...root }}>
+                <Chip label="Keywords" color="primary" />
+                {keyword?.keywords?.length > 0 ? (
+                    <Chip label={keyword.keywords[0].name} sx={{ ...chip }} />
+                ) : (
+                    <Chip label="No keywords found" sx={{ ...chip }} />
+                )}
+            </Paper>
+
 
             <Paper component="ul" sx={{ ...root }}>
                 <Chip label={`Streaming providers `} color="primary" />
@@ -123,20 +144,20 @@ const MovieDetails = ({ movie, credits }) => {
                 )}
             </Paper>
 
-              {/*https://developer.themoviedb.org/reference/movie-credits*/}
-              {/*returns cast name and character name else returns error message*/}  
+            {/*https://developer.themoviedb.org/reference/movie-credits*/}
+            {/*returns cast name and character name else returns error message*/}
             <Paper component="ul" sx={{ ...root }}>
                 <Chip label={`Main actor`} color="primary" />
                 {credits && credits.cast && credits.cast.length > 0 ? (
                     <Chip
-                    label={`${credits.cast[0].name} (${credits.cast[0].character})`}
-                    sx={{ ...chip }}
+                        label={`${credits.cast[0].name} (${credits.cast[0].character})`}
+                        sx={{ ...chip }}
                     />
                 ) : (
-                    <Chip label="No main actor found" sx={{...Chip}}/>
+                    <Chip label="No main actor found" sx={{ ...Chip }} />
                 )}
             </Paper>
-            
+
 
             <Paper component="ul" sx={{ ...root }}>
                 <Chip label={`Alternative Titles`} color="primary" />
