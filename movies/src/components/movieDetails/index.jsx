@@ -123,6 +123,21 @@ const MovieDetails = ({ movie, credits }) => {
                 )}
             </Paper>
 
+              {/*https://developer.themoviedb.org/reference/movie-credits*/}
+              {/*returns cast name and character name else returns error message*/}  
+            <Paper component="ul" sx={{ ...root }}>
+                <Chip label={`Main actor`} color="primary" />
+                {credits && credits.cast && credits.cast.length > 0 ? (
+                    <Chip
+                    label={`${credits.cast[0].name} (${credits.cast[0].character})`}
+                    sx={{ ...chip }}
+                    />
+                ) : (
+                    <Chip label="No main actor found" sx={{...Chip}}/>
+                )}
+            </Paper>
+            
+
             <Paper component="ul" sx={{ ...root }}>
                 <Chip label={`Alternative Titles`} color="primary" />
                 {alternativeTitles && alternativeTitles.length > 0 ? (
