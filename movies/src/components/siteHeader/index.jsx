@@ -105,7 +105,11 @@ const SiteHeader = () => {
                 <Button sx={{
                   marginRight: 2,
                   fontSize: '0.9rem',
-                  textTransform: 'none'
+                  textTransform: 'none',
+                  '&:hover': {
+                    //backgroundColor: '#aa00ff',
+                    transform: 'scale(1.1)',
+                  }
 
                 }}
                   key={opt.label}
