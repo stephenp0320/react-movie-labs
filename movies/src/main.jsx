@@ -19,6 +19,7 @@ import NowPlaying from "./pages/nowPlaying";
 import theme from "./theme";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import WatchlistPage from "./pages/watchlistPage";
 
 
 const queryClient = new QueryClient({
@@ -54,6 +55,7 @@ const App = () => {
             <Route path="/movies/air" element={<OnAirPage />} />
             <Route path="/movies/:id/recommendations" element={<RecommendationsPage />} />
             <Route path="/movies/nowplaying" element={<NowPlaying />} />
+            <Route path="/watchlist/movies" element={<WatchlistPage />} />
           </Routes>
         </MoviesContextProvider>
       </BrowserRouter>
