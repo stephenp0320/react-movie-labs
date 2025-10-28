@@ -53,16 +53,22 @@ const SiteHeader = () => {
 
   const handleOpenMovieMenu = (event) => setMovieMenuAnchor(event.currentTarget);
   const handleCloseMovieMenu = () => setMovieMenuAnchor(null);
-    
+
   return (
     <>
       <AppBar position="fixed" color="secondary">
         <Toolbar>
-          <Typography variant="h4" sx={{ flexGrow: 1 }}>
-            TMDB Explorer
-          </Typography>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            Explore, Discover, and Rate Movies
+          <Typography
+            variant="h4"
+            sx={{
+              flexGrow: 1,
+              fontWeight: 700,
+              letterSpacing: 1,
+              color: 'white',
+              textShadow: '0 1px 2px rgba(0,0,0,0.4)',
+            }}
+          >
+            TMDB <span style={{ color: 'aa00ff' }}>Explorer</span>
           </Typography>
 
           {isMobile ? (
@@ -96,7 +102,12 @@ const SiteHeader = () => {
           ) : (
             <>
               {menuOptions.map((opt) => (
-                <Button
+                <Button sx={{
+                  marginRight: 2,
+                  fontSize: '0.9rem',
+                  textTransform: 'none'
+
+                }}
                   key={opt.label}
                   color="inherit"
                   onClick={() => handleMenuSelect(opt.path)}

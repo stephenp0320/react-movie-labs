@@ -58,13 +58,13 @@ export default function FilterMoviesCard(props) {
     return (
         <Card
             sx={{
-                backgroundColor: "rgba(106, 7, 7, 0.91)",
+                backgroundColor: "#6a0707",
                 borderRadius: 5,
                 boxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.91)",
                 transition: "transform 0.3s, box-shadow 0.3s",
                 "&:hover": {
                     transform: "scale(1.05)",
-                    boxShadow: "0 12px 24px 0 rgba(203, 20, 20, 0.91)",
+                    boxShadow: "0 12px 24px 0 #cb1414",
                 },
             }}
             variant="outlined">
