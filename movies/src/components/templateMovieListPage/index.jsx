@@ -20,6 +20,9 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
       return genreId > 0 ? (m.genre_ids ?? []).includes(genreId) : true;
     });
 
+  
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
   if (sortKey === "title") {
     displayedMovies = displayedMovies.sort((a, b) => {
       return get_title(a).localeCompare(get_title(b));
