@@ -54,6 +54,10 @@ export default function FilterMoviesCard(props) {
         handleChange(e, "genre", e.target.value);
     };
 
+    const handleSortChange = (e) => {
+        handleChange(e, "sort", e.target.value);
+    }
+
 
     return (
         <Card
@@ -88,12 +92,12 @@ export default function FilterMoviesCard(props) {
                     <Select
                         labelId="genre-label"
                         id="genre-select"
+                        label="Genre"
                         defaultValue=""
                         value={props.genreFilter}
                         onChange={handleGenreChange}
-                    >
-
-                        {genres.map((genre) => {
+                    >    
+                    {genres.map((genre) => {
                             return (
                                 <MenuItem key={genre.id} value={genre.id}>
                                     {genre.name}
@@ -101,6 +105,27 @@ export default function FilterMoviesCard(props) {
                             );
                         })}
                     </Select>
+
+                    <InputLabel id="sort-label">Sort by</InputLabel>
+                    <Select 
+                        labelId="sort-label"
+                        id="sort-select"
+                        label="Sort by"
+                        defaultValue=""
+                        value={props.sortKey}
+                        onChange={handleSortChange}
+                    >
+                        <MenuItem key="none" value="none">
+                            Default
+                        </MenuItem>
+                        <MenuItem key="title" value="title">
+                            Title
+                        </MenuItem>
+                        <MenuItem key="release_date" value="release_date">
+                            Release Date
+                        </MenuItem>
+                    </Select>
+
                 </FormControl>
             </CardContent>
             <CardMedia
