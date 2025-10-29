@@ -12,15 +12,13 @@ const TvPage = (props) => {
     queryKey: ['tv'],
     queryFn: () => getTv(1),
   })
-
   if (isPending) {
     return <Spinner />
   }
-
   if (isError) {
     return <h1>{error.message}</h1>
   }
-
+  
   const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
