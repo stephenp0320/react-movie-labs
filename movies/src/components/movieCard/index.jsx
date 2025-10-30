@@ -107,7 +107,7 @@ export default function MovieCard({ movie, action }) {
         </Button>
       </Link>
 
-      <Link to={`/movies/${movie.id}/reviews`}>
+      <Link to={`/movies/${movie.id}/reviews`} state={{ movie }}>
         <Button variant="outlined" size="medium" color="error" sx={{ marginLeft: 1 }}>
           Reviews
         </Button>
