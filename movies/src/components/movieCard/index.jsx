@@ -74,7 +74,7 @@ export default function MovieCard({ movie, action }) {
         }
       />
       <CardContent>
-        <Grid container spacing={1}>
+        <Grid container spacing={1.5}>
           <Grid item xs={6}>
             <Stack direction="row" alignItems="center" spacing={1}>
             <CalendarIcon fontSize="small" />
@@ -85,33 +85,41 @@ export default function MovieCard({ movie, action }) {
           {/* https://api.themoviedb.org/3/discover/movie?api_key=YOUR_KEY&include_adult=true&page=1 */}
           {/* check to ensure adult boolean works*/}
 
-          <Grid size={{ xs: 6 }}>
-            <Typography variant="h6" component="p">
+          <Grid item xs={6}>
+            <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant="body2">
               <NoAdultContentIcon fontSize="small" />
               {movie.adult ? " yes" : " no"}
             </Typography>
+            </Stack>
           </Grid>
 
 
-          <Grid size={{ xs: 6 }}>
-            <Typography variant="h6" component="p">
+          <Grid item xs={6}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant="body2">
               <ThumbUpIcon fontSize="small" />
               {"  "} {Math.round(movie.vote_average * 10)}{"%"}
             </Typography>
+            </Stack>
           </Grid>
 
-          <Grid size={{ xs: 6 }}>
-            <Typography variant="h6" component="p">
+          <Grid item xs={6}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant="body2">
               <HowToVoteIcon fontSize="small" />
               {"  "}{movie.vote_count || "Unknown"} votes
             </Typography>
+            </Stack>
           </Grid>
 
-          <Grid size={{ xs: 6 }}>
-            <Typography variant="h6" component="p">
+          <Grid item xs={6}>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Typography variant="body2">
               <WhatshotIcon fontSize="small" />
               Popular:{"  "}{movie.popularity || "Unknown"}
             </Typography>
+            </Stack>
           </Grid>
           
         </Grid>
