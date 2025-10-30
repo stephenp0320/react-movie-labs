@@ -5,8 +5,8 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router";
-
-
+import ReplayIcon from '@mui/icons-material/Replay';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 const Header = (props) => {
   const title = props.title
   const navigate = useNavigate();
@@ -21,7 +21,7 @@ const Header = (props) => {
       }}
     >
       <IconButton aria-label="go back" onClick={() => navigate(-1)}>
-        <ArrowBackIcon color="error" fontSize="large" />
+        <ReplayIcon color="error" fontSize="large" />
       </IconButton>
 
 
@@ -29,7 +29,7 @@ const Header = (props) => {
         {title}
       </Typography>
       <IconButton aria-label="go forward" onClick={() => navigate(+1)}>
-        <ArrowForwardIcon color="error" fontSize="large" />
+        <RocketLaunchIcon color="error" fontSize="large" />
       </IconButton>
 
     </Paper>
