@@ -12,14 +12,10 @@ import img from '/Users/stephenpower/Desktop/year4/web_app_two/react-movie-labs/
 import { getGenres, getTvGenres } from "../../api/tmdb-api";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
+import { Box } from "@mui/material";
 
 
-const formControl =
-{
-    margin: 1,
-    minWidth: "90%",
-    backgroundColor: "rgb(255, 255, 255)"
-};
+const formControl = { minWidth: "100%" };
 
 export default function FilterMoviesCard(props) {
 
@@ -62,21 +58,41 @@ export default function FilterMoviesCard(props) {
     return (
         <Card
             sx={{
-                backgroundColor: "#6a0707",
+                borderRadius: 4,
+                overflow: "hidden",
+                background: "linear-gradient(180deg, #6a0707 0%, #19191c 100%)",
+                color: "white",
                 borderRadius: 5,
-                boxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.91)",
-                transition: "transform 0.3s, box-shadow 0.3s",
+                boxShadow: "0 8px 16px 0 #000000",
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 "&:hover": {
-                    transform: "scale(1.05)",
-                    boxShadow: "0 12px 24px 0 #cb1414",
+                    transform: "translateY(-3px)",
+                    boxShadow: "0 16px 32px #000000",
                 },
             }}
-            variant="outlined">
-            <CardContent>
+        >
+
+            {/* https://mui.com/material-ui/react-box/ */}
+            <Box
+                sx={{
+                    px: 2.5,
+                    py: 2,
+                    borderBottom: '1px solid rgba(255, 255, 255, 0.12)',
+                    backgroundfilter: 'blur(10px)'
+                }}
+            >
                 <Typography variant="h5" component="h1">
-                    <SearchIcon fontSize="large" />
+                    <SearchIcon sx={{ mr: 1, verticalAlign: "middle" }} />
                     Filter {isTv ? "TV Shows" : "Movies"}
                 </Typography>
+                <Typography variant="body2" sx={{opacity: 0.8, mt: 0.25}}>
+                    Search by title, genre or sort order
+                </Typography>
+
+            </Box>
+
+            <CardContent>
+
                 <TextField
                     sx={{ ...formControl }}
                     id="filled-search"
@@ -96,8 +112,8 @@ export default function FilterMoviesCard(props) {
                         defaultValue=""
                         value={props.genreFilter}
                         onChange={handleGenreChange}
-                    >    
-                    {genres.map((genre) => {
+                    >
+                        {genres.map((genre) => {
                             return (
                                 <MenuItem key={genre.id} value={genre.id}>
                                     {genre.name}
@@ -105,9 +121,10 @@ export default function FilterMoviesCard(props) {
                             );
                         })}
                     </Select>
-
+                </FormControl>
+                <FormControl sx={{ ...formControl }}>
                     <InputLabel id="sort-label">Sort by</InputLabel>
-                    <Select 
+                    <Select
                         labelId="sort-label"
                         id="sort-select"
                         label="Sort by"
@@ -125,20 +142,8 @@ export default function FilterMoviesCard(props) {
                             Release Date
                         </MenuItem>
                     </Select>
-
                 </FormControl>
-            </CardContent>
-            <CardMedia
-                sx={{ height: 300 }}
-                image={img}
-                title="Filter"
-            />
-            <CardContent>
-                <Typography variant="h5" component="h1">
-                    <SearchIcon fontSize="large" />
-                    Filter the movies.
-                    <br />
-                </Typography>
+
             </CardContent>
         </Card>
     );

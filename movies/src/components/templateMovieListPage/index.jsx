@@ -40,7 +40,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
   };
 
   return (
-    <Grid container>
+    <Grid container direction="column" spacing={2} sx={{ padding: "20px" }}>
       <Grid size={12}>
         <Header title={title} />
       </Grid>
@@ -58,7 +58,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
             isTv={isTv}
           />
         </Grid>
-        <MovieList action={action} movies={displayedMovies}></MovieList>
+        <MovieList action={action} movies={displayedMovies} isTv={isTv}/>
       </Grid>
     </Grid>
   );

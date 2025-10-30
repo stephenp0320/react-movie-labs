@@ -19,18 +19,14 @@ import Avatar from '@mui/material/Avatar';
 import ExplicitIcon from '@mui/icons-material/Explicit';
 
 
-export default function MovieCard({ movie, action }) {
+export default function TvCard({ tv, action }) {
   const { favorites, addToFavorites } = useContext(MoviesContext);
 
-  if (favorites.find((id) => id === movie.id)) {
-    movie.favorite = true;
-  } else {
-    movie.favorite = false
-  }
+  const isFav = favorites.find((id) => id === tv.id) != null; 
 
   const handleAddToFavorite = (e) => {
     e.preventDefault();
-    addToFavorites(movie);
+    addToFavorites(tv);
   };
 
 
@@ -48,7 +44,7 @@ export default function MovieCard({ movie, action }) {
     }}>
       <CardHeader
         avatar={
-          movie.favorite ? (
+            isFav ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
             </Avatar>
@@ -56,16 +52,16 @@ export default function MovieCard({ movie, action }) {
         }
         title={
           <Typography variant="h5" component="p">
-            {movie.title}{" "}
+            {tv.name}{" "}
           </Typography>
         }
       />
 
       <CardMedia
-        sx={{ height: 500 }}
+        sx={{ height: 300, width: 300 }}
         image={
-          movie.poster_path
-            ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
+            tv.poster_path
+            ? `https://image.tmdb.org/t/p/w500/${tv.poster_path}`
             : img
         }
       />
@@ -74,44 +70,30 @@ export default function MovieCard({ movie, action }) {
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-              {movie.release_date}
+             {" "}{tv.first_air_date ?? "N/A"}
             </Typography>
           </Grid>
 
-          {/* https://api.themoviedb.org/3/discover/movie?api_key=YOUR_KEY&include_adult=true&page=1 */}
-          {/* check to ensure adult boolean works*/}
-
-          <Grid size={{ xs: 6 }}>
-            <Typography variant="h6" component="p">
-              <ExplicitIcon fontSize="small" />
-              {movie.adult ? " yes" : " no"}
-            </Typography>
-          </Grid>
 
 
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <ThumbUpIcon fontSize="small" />
-              {"  "} {Math.round(movie.vote_average * 10)}{"%"}
+              {"  "} {Math.round(tv.vote_average * 10)}{"%"}
             </Typography>
           </Grid>
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
       
-      {action(movie)}
+      {action(tv)}
     
-      <Link to={`/movies/${movie.id}`}>
+      <Link to={`/tv/${tv.id}`}>
         <Button variant="outlined" size="medium" color="primary">
           More Info
         </Button>
       </Link>
 
-      <Link to={`/movies/${movie.id}/reviews`}>
-        <Button variant="outlined" size="medium" color="error" sx={{ marginLeft: 1 }}>
-          Reviews
-        </Button>
-      </Link>
       
     </CardActions>
 
