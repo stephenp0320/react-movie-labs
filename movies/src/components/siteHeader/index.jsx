@@ -68,7 +68,7 @@ const SiteHeader = () => {
               textShadow: '0 1px 2px rgba(0,0,0,0.4)',
             }}
           >
-            TMDB <span style={{ color: 'aa00ff' }}>Explorer</span>
+            TMDB <span style={{ color: '#a80b0b' }}>Chronicles</span>
           </Typography>
 
           {isMobile ? (

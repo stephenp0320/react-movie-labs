@@ -30,7 +30,7 @@ const HomePage = (props) => {
 
   return (
     <PageTemplate
-      title="Discover Movies"
+      title="The Chamber of Tales"
       movies={movies}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />
