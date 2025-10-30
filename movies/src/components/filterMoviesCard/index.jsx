@@ -62,7 +62,6 @@ export default function FilterMoviesCard(props) {
                 overflow: "hidden",
                 background: "linear-gradient(180deg, #6a0707 0%, #19191c 100%)",
                 color: "white",
-                borderRadius: 5,
                 boxShadow: "0 8px 16px 0 #000000",
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 "&:hover": {
