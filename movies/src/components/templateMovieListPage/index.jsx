@@ -40,8 +40,12 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     displayedMovies = displayedMovies.sort((a, b) => {
       return (b.popularity || 0) - (a.popularity || 0);
     });
-
+  } else if (sortKey === "rating") { //sorts by decending order
+    displayedMovies = displayedMovies.sort((a, b)=> {
+      return (b.vote_average || 0) - (a.vote_average || 0);
+    })
   }
+
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);

@@ -146,7 +146,7 @@ export default function FilterMoviesCard(props) {
                         <MenuItem key="title" value="title">Title</MenuItem>
                         <MenuItem key="release_date" value="release_date">Release Date</MenuItem>
                         <MenuItem key="vote_count" value="vote_count">Vote Count</MenuItem>
-                        <MenuItem key="popularity" value="popularity">Popularity</MenuItem>
+                        <MenuItem key="rating" value="rating">Rating</MenuItem>
                     </Select>
                 </FormControl>
 
