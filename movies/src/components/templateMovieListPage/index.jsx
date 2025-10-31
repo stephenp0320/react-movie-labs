@@ -8,10 +8,12 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [minRating, setMinRating] = useState(0);
+  const [minPopularity, setMinPopularity] = useState(0);
   const [sortKey, setSortKey] = useState("none");
   const genreId = Number(genreFilter);
 
   const get_title = (m) => (m.title ?? m.name ?? "")
+  const maxPopularity = Math.max(1000, ...movies.map((m) => Number(m.popularity || 0)));
 
   let displayedMovies = movies
     .filter((m) => {
@@ -20,7 +22,8 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     .filter((m) => {
       return genreId > 0 ? (m.genre_ids ?? []).includes(genreId) : true;
     })
-    .filter((m) => Number(m.vote_average ?? 0) >= (minRating || 0));
+    .filter((m) => Number(m.vote_average ?? 0) >= (minRating || 0))
+    .filter((m) => Number(m.popularity || 0) >= (minPopularity || 0));
 
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -33,6 +36,11 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     displayedMovies = displayedMovies.sort((a, b) => {
       return new Date(b.release_date) - new Date(a.release_date);
     });
+  } else if (sortKey === "popularity") {
+    displayedMovies = displayedMovies.sort((a, b) => {
+      return (b.popularity || 0) - (a.popularity || 0);
+    });
+
   }
 
   const handleChange = (type, value) => {
@@ -40,6 +48,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     else if (type === "genre") setGenreFilter(value);
     else if (type === "sort") setSortKey(value);
     else if (type === "minRating") setMinRating(Number(value));
+    else if (type === "minPopularity") setMinPopularity(Number(value));
   };
 
   return (
@@ -64,6 +73,8 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
             sortKey={sortKey}
             isTv={isTv}
             minRating={minRating}
+            minPopularity={minPopularity}
+            maxPopularity={maxPopularity}
           />
         </Grid>
 

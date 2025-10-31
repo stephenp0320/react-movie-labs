@@ -59,6 +59,10 @@ export default function FilterMoviesCard(props) {
         props.onUserInput("minRating", Number(value));
     }
 
+    const handlePopularityChange = (_, value) => {
+        props.onUserInput("minPopularity", Number(value));
+    };
+
 
     return (
         <Card
@@ -160,6 +164,18 @@ export default function FilterMoviesCard(props) {
                     />
                 </Box>
 
+
+                <Box sx={{ ...formControl, mt: 2 }}>
+                    <Typography variant="caption">Minimum Popularity</Typography>
+                    <Slider
+                        value={Number(props.minPopularity) || 0}
+                        min = {0}
+                        max = {Number(props.maxPopularity) || 1000}
+                        step = {10}
+                        valueLabelDisplay="auto"
+                        onChange={handlePopularityChange}
+                    />
+                </Box>
                 
                 
 
