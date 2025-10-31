@@ -7,6 +7,7 @@ import Grid from "@mui/material/Grid";
 function MovieListPageTemplate({ movies, title, action, isTv }) {
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
+  const [minRating, setMinRating] = useState(0);
   const [sortKey, setSortKey] = useState("none");
   const genreId = Number(genreFilter);
 
@@ -18,7 +19,8 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     })
     .filter((m) => {
       return genreId > 0 ? (m.genre_ids ?? []).includes(genreId) : true;
-    });
+    })
+    .filter((m) => Number(m.vote_average ?? 0) >= (minRating || 0));
 
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
@@ -37,6 +39,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     if (type === "name") setNameFilter(value);
     else if (type === "genre") setGenreFilter(value);
     else if (type === "sort") setSortKey(value);
+    else if (type === "minRating") setMinRating(Number(value));
   };
 
   return (
@@ -60,6 +63,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
             genreFilter={genreFilter}
             sortKey={sortKey}
             isTv={isTv}
+            minRating={minRating}
           />
         </Grid>
 

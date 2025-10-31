@@ -13,6 +13,7 @@ import { getGenres, getTvGenres } from "../../api/tmdb-api";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
 import { Box } from "@mui/material";
+import Slider from '@mui/material/Slider';
 
 
 const formControl = { minWidth: "100%" };
@@ -52,6 +53,10 @@ export default function FilterMoviesCard(props) {
 
     const handleSortChange = (e) => {
         handleChange(e, "sort", e.target.value);
+    }
+
+    const handleMinRatingChange = (_, value) => {
+        props.onUserInput("minRating", Number(value));
     }
 
 
@@ -134,14 +139,29 @@ export default function FilterMoviesCard(props) {
                         <MenuItem key="none" value="none">
                             Default
                         </MenuItem>
-                        <MenuItem key="title" value="title">
-                            Title
-                        </MenuItem>
-                        <MenuItem key="release_date" value="release_date">
-                            Release Date
-                        </MenuItem>
+                        <MenuItem key="title" value="title">Title</MenuItem>
+                        <MenuItem key="release_date" value="release_date">Release Date</MenuItem>
+                        <MenuItem key="vote_count" value="vote_count">Vote Count</MenuItem>
+                        <MenuItem key="popularity" value="popularity">Popularity</MenuItem>
                     </Select>
                 </FormControl>
+
+                {/* https://mui.com/material-ui/react-box/ */}
+                {/* https://mui.com/material-ui/react-slider/ */}
+                <Box sx={{ ...formControl, mt: 2 }}>
+                    <Typography variant="caption">Minimum rating</Typography>
+                    <Slider
+                        value={props.minRating ?? 0}
+                        min = {0}
+                        max = {10}
+                        step = {0.5}
+                        valueLabelDisplay="auto"
+                        onChange={handleMinRatingChange}
+                    />
+                </Box>
+
+                
+                
 
             </CardContent>
         </Card>
