@@ -14,14 +14,18 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import IconButton from "@mui/material/IconButton";
 import { Grid, Stack } from "@mui/material";
 import img from '/Users/stephenpower/Desktop/year4/web_app_two/react-movie-labs/movies/src/components/images/film-poster-placeholder.png'
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Avatar from '@mui/material/Avatar';
 import WhatshotIcon from '@mui/icons-material/Whatshot';
 import HowToVoteIcon from '@mui/icons-material/HowToVote';
 import NoAdultContentIcon from '@mui/icons-material/NoAdultContent';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+import { useState } from "react";
 
 export default function MovieCard({ movie, action }) {
   const { favorites, addToFavorites } = useContext(MoviesContext);
+  const navigate = useNavigate();
 
   if (favorites.find((id) => id === movie.id)) {
     movie.favorite = true;
@@ -29,10 +33,31 @@ export default function MovieCard({ movie, action }) {
     movie.favorite = false
   }
 
+  const [open, setOpen] = useState(false);
+
+  const handleOpen = () => setOpen(true);
+  const handleClose = (_, reason) => {
+    if (reason === "clickaway") return;
+    setOpen(false);
+  };
+
   const handleAddToFavorite = (e) => {
     e.preventDefault();
     addToFavorites(movie);
+    setOpen(true);
   };
+
+  const handleReviewClick = (e) => {
+    e.preventDefault();
+    handleOpen();
+    setTimeout(() => navigate(`/movies/${movie.id}/reviews`, { state: { movie } }), 600);
+  }
+
+  const handleMoreInfoClick = (e) => {
+    e.preventDefault();
+    handleOpen();
+    setTimeout(() => navigate(`/movies/${movie.id}`, { state: { movie } }), 600);
+  }
 
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleDateString
   const fmtDate = (d) => (d ? new Date(d).toLocaleDateString('en-GB') : "-");
@@ -128,19 +153,33 @@ export default function MovieCard({ movie, action }) {
       
       {action(movie)}
     
+      {/* https://mui.com/material-ui/react-snackbar/ */}
+      {/* added snackbar to show when more info and review buttons are clicked */}
+
       <Link to={`/movies/${movie.id}`}>
-        <Button variant="outlined" size="medium" color="primary">
+        <Button onClick={handleMoreInfoClick} variant="outlined" size="medium" color="primary">
           More Info
         </Button>
       </Link>
 
       <Link to={`/movies/${movie.id}/reviews`} state={{ movie }}>
-        <Button variant="outlined" size="medium" color="error" sx={{ marginLeft: 1 }}>
+        <Button onClick={handleReviewClick} variant="outlined" size="medium" color="error" sx={{ marginLeft: 1 }}>
           Reviews
         </Button>
       </Link>
       
     </CardActions>
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: "100%" }}>
+          You clicked the review button!
+        </Alert>
+      </Snackbar>
+
+      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+        <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: "100%" }}>
+          You clicked the more info button!
+        </Alert>
+      </Snackbar>
 
     </Card>
   );
