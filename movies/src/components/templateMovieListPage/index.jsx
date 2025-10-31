@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
 import MovieList from "../movieList";
 import Grid from "@mui/material/Grid";
+import Pagination from "@mui/material/Pagination";
 
 function MovieListPageTemplate({ movies, title, action, isTv }) {
   const [nameFilter, setNameFilter] = useState("");
@@ -11,6 +12,8 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
   const [minPopularity, setMinPopularity] = useState(0);
   const [sortKey, setSortKey] = useState("none");
   const genreId = Number(genreFilter);
+  const [page, setPage] = useState(1);
+  const pageSize = 20;
 
   const get_title = (m) => (m.title ?? m.name ?? "")
   const maxPopularity = Math.max(1000, ...movies.map((m) => Number(m.popularity || 0)));
@@ -25,6 +28,9 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     .filter((m) => Number(m.vote_average ?? 0) >= (minRating || 0))
     .filter((m) => Number(m.popularity || 0) >= (minPopularity || 0));
 
+  useEffect(() => {
+    setPage(1);
+  }, [nameFilter, genreFilter, minRating, minPopularity, sortKey]);
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
@@ -41,15 +47,21 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
       return (b.popularity || 0) - (a.popularity || 0);
     });
   } else if (sortKey === "rating") { //sorts by decending order
-    displayedMovies = displayedMovies.sort((a, b)=> {
+    displayedMovies = displayedMovies.sort((a, b) => {
       return (b.vote_average || 0) - (a.vote_average || 0);
     });
   } else if (sortKey === "vote_count") {
-    displayedMovies = displayedMovies.sort((a, b)=> {
+    displayedMovies = displayedMovies.sort((a, b) => {
       return (b.vote_count || 0) - (a.vote_count || 0);
     });
   }
 
+  // Math.ceil rounds up to the nearest integer
+  // slice extracts a section of an array and returns it as a new array
+  // from mdn web docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
+  //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+  const pageCnt = Math.ceil(displayedMovies.length / pageSize);
+  const pagedMovies = displayedMovies.slice((page - 1) * pageSize, page * pageSize);
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
@@ -72,7 +84,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
           item
           xs={12}
           //https://mui.com/system/getting-started/the-sx-prop/
-          sx={{ position: "relative",top: 10, zIndex: 5, width: "100vw", left: "50%", transform: "translateX(-50%)", px: 3, mb: 3,}}
+          sx={{ position: "relative", top: 10, zIndex: 5, width: "100vw", left: "50%", transform: "translateX(-50%)", px: 3, mb: 3, }}
         >
           <FilterCard
             onUserInput={handleChange}
@@ -87,7 +99,17 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
         </Grid>
 
 
-        <MovieList action={action} movies={displayedMovies}></MovieList>
+        <MovieList action={action} movies={pagedMovies}></MovieList>
+
+        {/* https://mui.com/material-ui/react-pagination/ */}
+        {pageCnt > 1 && (
+          <Pagination
+            count={pageCnt}
+            page={page}
+            onChange={(_, value) => setPage(value)}
+            sx={{ m: 2, mx: "auto" }}
+          />
+        )}
       </Grid>
     </Grid>
   );
