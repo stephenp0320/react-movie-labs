@@ -43,7 +43,11 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
   } else if (sortKey === "rating") { //sorts by decending order
     displayedMovies = displayedMovies.sort((a, b)=> {
       return (b.vote_average || 0) - (a.vote_average || 0);
-    })
+    });
+  } else if (sortKey === "vote_count") {
+    displayedMovies = displayedMovies.sort((a, b)=> {
+      return (b.vote_count || 0) - (a.vote_count || 0);
+    });
   }
 
 
