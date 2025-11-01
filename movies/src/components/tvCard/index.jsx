@@ -12,10 +12,10 @@ import CalendarIcon from "@mui/icons-material/CalendarTodayTwoTone";
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { Grid } from "@mui/material";
 import img from '/Users/stephenpower/Desktop/year4/web_app_two/react-movie-labs/movies/src/components/images/film-poster-placeholder.png'
-import { Link } from "react-router";
+import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import Avatar from '@mui/material/Avatar';
-
-
+import ThumbUpOffAltIcon from '@mui/icons-material/ThumbUpOffAlt';
+import TranslateIcon from '@mui/icons-material/Translate';
 export default function TvCard({ tv, action }) {
   const { favorites, addToFavorites } = useContext(MoviesContext);
 
@@ -71,6 +71,27 @@ export default function TvCard({ tv, action }) {
             </Typography>
           </Grid>
 
+          <Grid size={{ xs: 6 }}>
+            <Typography variant="h6" component="p">
+              <LocalFireDepartmentIcon fontSize="small" />
+             {" "}{tv.popularity ?? "N/A"}
+            </Typography>
+          </Grid>
+
+          <Grid size={{ xs: 6 }}>
+            <Typography variant="h6" component="p">
+              <ThumbUpOffAltIcon fontSize="small" />
+             {" "}{tv.vote_count ?? "N/A"}
+            </Typography>
+          </Grid>
+
+          <Grid size={{ xs: 6 }}>
+            <Typography variant="h6" component="p">
+              <TranslateIcon fontSize="small" />
+             {" "}{tv.original_language ?? "N/A"}
+            </Typography>
+          </Grid>
+
 
 
           <Grid size={{ xs: 6 }}>
@@ -83,14 +104,8 @@ export default function TvCard({ tv, action }) {
       </CardContent>
       <CardActions disableSpacing>
       
-      {action(tv)}
+ 
     
-      <Link to={`/tv/${tv.id}`}>
-        <Button variant="outlined" size="medium" color="primary">
-          More Info
-        </Button>
-      </Link>
-
       
     </CardActions>
 
