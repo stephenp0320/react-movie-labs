@@ -1,4 +1,3 @@
-import { responsiveFontSizes } from "@mui/material";
 
 export const getMovies = () => {
     return fetch(
