@@ -1,12 +1,10 @@
 import React from "react";
 import { getPopularMovies } from "../api/tmdb-api";
-//import PageTemplate from '../components/templateMovieListPage';
 import MovieList from "../components/movieList";
 import Header from "../components/headerMovieList";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
-import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
-
+import Container from "@mui/material/Container";
 
 const PopularMoviesPage = (props) => {
 
@@ -28,13 +26,23 @@ const PopularMoviesPage = (props) => {
     // Redundant, but necessary to avoid app crashing.
     const favorites = movies.filter(m => m.favorite)
     localStorage.setItem('favorites', JSON.stringify(favorites))
-    const addToFavorites = (movieId) => true
 
     return (
+        <Container sx={{ 
+            mt: 10,
+            mb: 4,
+            py: 2,
+            minHeight: '80vh',
+            backgroundColor: 'rgba(255, 255, 255, 0.02)',
+            borderRadius: 5,
+            boxShadow: '0 8px 16px 0 #000000',
+
+         }}>
         <>
             <Header title="Popular Movies" />
-            <MovieList movies={movies} action={(movie) => <AddToPlaylistIcon movie={movie} />} />
+            <MovieList movies={movies} action={() => <></>} />        
         </>
+        </Container>
     );
 
 };
