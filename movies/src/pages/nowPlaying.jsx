@@ -3,8 +3,8 @@ import { getNowPlaying } from "../api/tmdb-api";
 import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
-import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
-
+import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
+import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const NowPlaying = (props) => {
 
@@ -31,9 +31,12 @@ const NowPlaying = (props) => {
     <PageTemplate
       title="Movies Now Playing in theaters"
       movies={movies}
-      action={(movie) => {
-        return <AddToPlaylistIcon movie={movie} />
-      }}
+      action={(movie) => (
+        <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToWatchlistIcon movie={movie} />
+        </>
+      )}
     />
 );
 
