@@ -9,6 +9,7 @@ import { useForm, Controller } from "react-hook-form";
 import Snackbar from "@mui/material/Snackbar";
 import MuiAlert from "@mui/material/Alert";
 import { useNavigate } from "react-router";
+import { max } from "lodash";
 
 
 const ratings = [
@@ -36,10 +37,20 @@ const ratings = [
 
 const styles = {
   root: {
-    marginTop: 2,
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "left",
+    mt: 6,
+    p: 4,
+    borderRadius: 5,
+    colour: '#fff',
+    maxWidth: 800,
+    //https://cssgenerator.pl/en/gradient-generator/
+    background: "linear-gradient(120deg, rgba(50, 50, 60, 1) 0%, rgba(15, 15, 20, 1) 50%, rgba(0, 0, 0, 1) 100%)",
+    boxShadow: "0 4px 20px #000",
+    trasition: "transform 0.3s",
+    "&:hover": {
+      transform: "scale(1.01)",
+    },
+
+
   },
   form: {
     width: "100%",
