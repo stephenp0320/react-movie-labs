@@ -11,7 +11,8 @@ import Drawer from "@mui/material/Drawer";
 import MovieReviews from "../movieReviews"
 import { getAlternativeTitles, getSimilar, getKeyword } from "../../api/tmdb-api";
 import { useEffect } from "react";
-
+import { Breadcrumbs } from "@mui/material";
+import Link from "@mui/material/Link";
 
 
 const root = {
@@ -71,6 +72,12 @@ const MovieDetails = ({ movie, credits }) => {
 
     return (
         <>
+            <Breadcrumbs aria-label="breadcrumb" sx={{ marginTop: "1em" }}>
+                <Link underline="hover" href="/">Home</Link>
+                <Link underline="hover" href="/movies">Movies</Link>
+                <Typography color="text.primary">{movie.title}</Typography>
+            </Breadcrumbs>
+
             <Typography variant="h5" component="h3">
                 Overview
             </Typography>
