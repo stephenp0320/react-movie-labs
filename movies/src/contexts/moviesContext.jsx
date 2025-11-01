@@ -28,7 +28,7 @@ const MoviesContextProvider = (props) => {
       newWatchlist = [...watchlist];
     }
     setWatchlist(newWatchlist)
-  };  
+  };
 
   const addReview = (movie, review) => {
     setMyReviews({ ...myReviews, [movie.id]: review })

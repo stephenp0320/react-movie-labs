@@ -4,7 +4,7 @@ import PlaylistAddIcon from "@mui/icons-material/PlaylistAdd";
 import { MoviesContext } from "../../contexts/moviesContext";
 
 const AddToPlaylistIcon = ({ movie }) => {
-  const {addToMustWatch} = useContext(MoviesContext)
+  const { addToMustWatch } = useContext(MoviesContext)
 
   const handleAddToMustWatch = (e) => {
     e.preventDefault();

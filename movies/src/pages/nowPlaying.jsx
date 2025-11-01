@@ -8,19 +8,19 @@ import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
 
 const NowPlaying = (props) => {
 
-  const { data, error, isPending, isError  } = useQuery({
+  const { data, error, isPending, isError } = useQuery({
     queryKey: ['nowPlaying'],
     queryFn: () => getNowPlaying(1),
   })
-  
+
   if (isPending) {
     return <Spinner />
   }
 
   if (isError) {
     return <h1>{error.message}</h1>
-  }  
-  
+  }
+
   const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
@@ -38,7 +38,7 @@ const NowPlaying = (props) => {
         </>
       )}
     />
-);
+  );
 
 };
 export default NowPlaying;

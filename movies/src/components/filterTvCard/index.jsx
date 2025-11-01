@@ -107,7 +107,7 @@ export default function FilterTvCard(props) {
                     </Select>
 
                     <InputLabel id="sort-label">Sort by</InputLabel>
-                    <Select 
+                    <Select
                         labelId="sort-label"
                         id="sort-select"
                         label="Sort by"

@@ -8,38 +8,38 @@ import AddToWatchlistIcon from '../components/cardIcons/addToWatchlist';
 
 const HomePage = (props) => {
 
-  const { data, error, isPending, isError  } = useQuery({
+  const { data, error, isPending, isError } = useQuery({
     queryKey: ['discover'],
     queryFn: getMovies,
   })
-  
+
   if (isPending) {
     return <Spinner />
   }
 
   if (isError) {
     return <h1>{error.message}</h1>
-  }  
-  
+  }
+
   const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
   const favorites = movies.filter(m => m.favorite)
   localStorage.setItem('favorites', JSON.stringify(favorites))
-  const addToFavorites = (movieId) => true 
+  const addToFavorites = (movieId) => true
 
   return (
     <PageTemplate
-  title="The Chamber of Tales"
-  movies={movies}
-  action={(movie) => (
-    <>
-      <AddToFavoritesIcon movie={movie} />
-      <AddToWatchlistIcon movie={movie} />
-    </>
-  )}
-/>
-);
+      title="The Chamber of Tales"
+      movies={movies}
+      action={(movie) => (
+        <>
+          <AddToFavoritesIcon movie={movie} />
+          <AddToWatchlistIcon movie={movie} />
+        </>
+      )}
+    />
+  );
 
 };
 export default HomePage;

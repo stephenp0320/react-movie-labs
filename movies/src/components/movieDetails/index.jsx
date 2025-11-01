@@ -52,7 +52,7 @@ const MovieDetails = ({ movie, credits }) => {
                 })
                 .catch((error) => {
                     console.error("Error fetching alternative titles:", error);
-                }); 
+                });
         }
     }, [movie.id]);
 

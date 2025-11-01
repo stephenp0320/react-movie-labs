@@ -91,7 +91,7 @@ export default function FilterMoviesCard(props) {
                     <SearchIcon sx={{ mr: 1, verticalAlign: "middle" }} />
                     Filter {isTv ? "TV Shows" : "Movies"}
                 </Typography>
-                <Typography variant="body2" sx={{opacity: 0.8, mt: 0.25}}>
+                <Typography variant="body2" sx={{ opacity: 0.8, mt: 0.25 }}>
                     Search by title, genre or sort order
                 </Typography>
 
@@ -154,9 +154,9 @@ export default function FilterMoviesCard(props) {
                     <Typography variant="caption">Minimum rating</Typography>
                     <Slider
                         value={props.minRating ?? 0}
-                        min = {0}
-                        max = {10}
-                        step = {0.5}
+                        min={0}
+                        max={10}
+                        step={0.5}
                         valueLabelDisplay="auto"
                         onChange={handleMinRatingChange}
                     />
@@ -167,15 +167,15 @@ export default function FilterMoviesCard(props) {
                     <Typography variant="caption">Minimum Popularity</Typography>
                     <Slider
                         value={Number(props.minPopularity) || 0}
-                        min = {0}
-                        max = {Number(props.maxPopularity) || 1000}
-                        step = {10}
+                        min={0}
+                        max={Number(props.maxPopularity) || 1000}
+                        step={10}
                         valueLabelDisplay="auto"
                         onChange={handlePopularityChange}
                     />
                 </Box>
-                
-                
+
+
 
             </CardContent>
         </Card>

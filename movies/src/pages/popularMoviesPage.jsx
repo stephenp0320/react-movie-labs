@@ -28,7 +28,7 @@ const PopularMoviesPage = (props) => {
     localStorage.setItem('favorites', JSON.stringify(favorites))
 
     return (
-        <Container sx={{ 
+        <Container sx={{
             mt: 10,
             mb: 4,
             py: 2,
@@ -37,11 +37,11 @@ const PopularMoviesPage = (props) => {
             borderRadius: 5,
             boxShadow: '0 8px 16px 0 #000000',
 
-         }}>
-        <>
-            <Header title="Popular Movies" />
-            <MovieList movies={movies} action={() => <></>} />        
-        </>
+        }}>
+            <>
+                <Header title="Popular Movies" />
+                <MovieList movies={movies} action={() => <></>} />
+            </>
         </Container>
     );
 

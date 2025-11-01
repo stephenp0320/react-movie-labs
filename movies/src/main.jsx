@@ -38,28 +38,28 @@ const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <SiteHeader />
-        <MoviesContextProvider>
-          <Routes>
-            <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
-            <Route path="/movies/:id/reviews" element={<MovieReviewPage />} />
-            <Route path="/movies/:id" element={<MoviePage />} />
-            <Route path="/" element={<HomePage />} />
-            <Route path="*" element={<Navigate to="/" />} />
-            <Route path="/reviews/form" element={<AddMovieReviewPage />} />
-            <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
-            <Route path="/movies/popular" element={<PopularMoviesPage />} />
-            <Route path="/movies/tv" element={<TvPage />} />
-            <Route path="/movies/air" element={<OnAirPage />} />
-            <Route path="/movies/:id/recommendations" element={<RecommendationsPage />} />
-            <Route path="/movies/nowplaying" element={<NowPlaying />} />
-            <Route path="/watchlist/movies" element={<WatchlistPage />} />
-          </Routes>
-        </MoviesContextProvider>
-      </BrowserRouter>
-      <ReactQueryDevtools initialIsOpen={false} />
+        <CssBaseline />
+        <BrowserRouter>
+          <SiteHeader />
+          <MoviesContextProvider>
+            <Routes>
+              <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />
+              <Route path="/movies/:id/reviews" element={<MovieReviewPage />} />
+              <Route path="/movies/:id" element={<MoviePage />} />
+              <Route path="/" element={<HomePage />} />
+              <Route path="*" element={<Navigate to="/" />} />
+              <Route path="/reviews/form" element={<AddMovieReviewPage />} />
+              <Route path="/movies/upcoming" element={<UpcomingMoviesPage />} />
+              <Route path="/movies/popular" element={<PopularMoviesPage />} />
+              <Route path="/movies/tv" element={<TvPage />} />
+              <Route path="/movies/air" element={<OnAirPage />} />
+              <Route path="/movies/:id/recommendations" element={<RecommendationsPage />} />
+              <Route path="/movies/nowplaying" element={<NowPlaying />} />
+              <Route path="/watchlist/movies" element={<WatchlistPage />} />
+            </Routes>
+          </MoviesContextProvider>
+        </BrowserRouter>
+        <ReactQueryDevtools initialIsOpen={false} />
       </ThemeProvider>
     </QueryClientProvider>
   );

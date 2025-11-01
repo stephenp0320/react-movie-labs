@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -95,8 +95,8 @@ export default function MovieCard({ movie, action }) {
         <Grid container spacing={1.5}>
           <Grid item xs={6}>
             <Stack direction="row" alignItems="center" spacing={1}>
-            <CalendarIcon fontSize="small" />
-            <Typography variant="body2">{fmtDate(movie.release_date)}</Typography>
+              <CalendarIcon fontSize="small" />
+              <Typography variant="body2">{fmtDate(movie.release_date)}</Typography>
             </Stack>
           </Grid>
 
@@ -105,63 +105,63 @@ export default function MovieCard({ movie, action }) {
 
           <Grid item xs={6}>
             <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography variant="body2">
-              <NoAdultContentIcon fontSize="small" />
-              {movie.adult ? " yes" : " no"}
-            </Typography>
+              <Typography variant="body2">
+                <NoAdultContentIcon fontSize="small" />
+                {movie.adult ? " yes" : " no"}
+              </Typography>
             </Stack>
           </Grid>
 
 
           <Grid item xs={6}>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography variant="body2">
-              <ThumbUpIcon fontSize="small" />
-              {"  "} {Math.round(movie.vote_average * 10)}{"%"}
-            </Typography>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Typography variant="body2">
+                <ThumbUpIcon fontSize="small" />
+                {"  "} {Math.round(movie.vote_average * 10)}{"%"}
+              </Typography>
             </Stack>
           </Grid>
 
           <Grid item xs={6}>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography variant="body2">
-              <HowToVoteIcon fontSize="small" />
-              {"  "}{movie.vote_count || "Unknown"} votes
-            </Typography>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Typography variant="body2">
+                <HowToVoteIcon fontSize="small" />
+                {"  "}{movie.vote_count || "Unknown"} votes
+              </Typography>
             </Stack>
           </Grid>
 
           <Grid item xs={6}>
-          <Stack direction="row" alignItems="center" spacing={1}>
-            <Typography variant="body2">
-              <WhatshotIcon fontSize="small" />
-              Popular:{"  "}{movie.popularity || "Unknown"}
-            </Typography>
+            <Stack direction="row" alignItems="center" spacing={1}>
+              <Typography variant="body2">
+                <WhatshotIcon fontSize="small" />
+                Popular:{"  "}{movie.popularity || "Unknown"}
+              </Typography>
             </Stack>
           </Grid>
-          
+
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-      
-      {action(movie)}
-    
-      {/* https://mui.com/material-ui/react-snackbar/ */}
-      {/* added snackbar to show when more info and review buttons are clicked */}
 
-      <Link to={`/movies/${movie.id}`}>
-        <Button onClick={handleMoreInfoClick} variant="outlined" size="medium" color="primary">
-          More Info
-        </Button>
-      </Link>
+        {action(movie)}
 
-      <Link to={`/movies/${movie.id}/reviews`} state={{ movie }}>
-        <Button onClick={handleReviewClick} variant="outlined" size="medium" color="error" sx={{ marginLeft: 1 }}>
-          Reviews
-        </Button>
-      </Link>
-      
-    </CardActions>
+        {/* https://mui.com/material-ui/react-snackbar/ */}
+        {/* added snackbar to show when more info and review buttons are clicked */}
+
+        <Link to={`/movies/${movie.id}`}>
+          <Button onClick={handleMoreInfoClick} variant="outlined" size="medium" color="primary">
+            More Info
+          </Button>
+        </Link>
+
+        <Link to={`/movies/${movie.id}/reviews`} state={{ movie }}>
+          <Button onClick={handleReviewClick} variant="outlined" size="medium" color="error" sx={{ marginLeft: 1 }}>
+            Reviews
+          </Button>
+        </Link>
+
+      </CardActions>
       <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" variant="filled" sx={{ width: "100%" }}>
           You clicked the review button!

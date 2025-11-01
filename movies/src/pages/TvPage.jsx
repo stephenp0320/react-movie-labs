@@ -1,6 +1,6 @@
 import React from "react";
 import { getTv } from "../api/tmdb-api";
-import TvListPageTemplate from "../components/TvListPageTemplate"; 
+import TvListPageTemplate from "../components/TvListPageTemplate";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
@@ -19,7 +19,7 @@ const TvPage = (props) => {
   if (isError) {
     return <h1>{error.message}</h1>
   }
-  
+
   const shows = data?.results || [];
 
   // Redundant, but necessary to avoid app crashing.

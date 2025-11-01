@@ -8,19 +8,19 @@ import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
 
 const UpcomingMoviesPage = (props) => {
 
-  const { data, error, isPending, isError  } = useQuery({
+  const { data, error, isPending, isError } = useQuery({
     queryKey: ['upcoming'],
     queryFn: () => getUpcomingMovies(1),
   })
-  
+
   if (isPending) {
     return <Spinner />
   }
 
   if (isError) {
     return <h1>{error.message}</h1>
-  }  
-  
+  }
+
   const movies = data.results;
 
   // Redundant, but necessary to avoid app crashing.
@@ -35,7 +35,7 @@ const UpcomingMoviesPage = (props) => {
         return <AddToFavoritesIcon movie={movie} />
       }}
     />
-);
+  );
 
 };
 export default UpcomingMoviesPage;

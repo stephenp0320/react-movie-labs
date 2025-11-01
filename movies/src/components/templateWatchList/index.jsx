@@ -10,11 +10,11 @@ function WatchListPageTemplate({ movies, title, action, isTv }) {
   const pageSize = 20;
 
   const get_title = (m) => (m.title ?? m.name ?? "")
-  
+
   const sortedMovies = [...movies].sort((a, b) =>
     get_title(a).localeCompare(get_title(b))
   );
-  
+
   const pageCnt = Math.ceil(sortedMovies.length / pageSize);
   const pagedMovies = sortedMovies.slice((page - 1) * pageSize, page * pageSize);
 

@@ -9,7 +9,7 @@ import WriteReview from "../components/cardIcons/writeReview";
 
 
 const WatchlistPage = () => {
-  const {watchlist: movieIds } = useContext(MoviesContext);
+  const { watchlist: movieIds } = useContext(MoviesContext);
 
   // Create an array of queries and run in parallel.
   const watchlistQueries = useQueries({
@@ -29,12 +29,12 @@ const WatchlistPage = () => {
   }
 
   const movies = watchlistQueries
-  .filter((q) => q.data)
-  .map((q) => {
-    const movie = q.data;
-    movie.genre_ids = movie.genres ? movie.genres.map((g) => g.id) : [];
-    return movie;
-  });
+    .filter((q) => q.data)
+    .map((q) => {
+      const movie = q.data;
+      movie.genre_ids = movie.genres ? movie.genres.map((g) => g.id) : [];
+      return movie;
+    });
 
 
   return (

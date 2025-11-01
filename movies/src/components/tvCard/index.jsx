@@ -1,4 +1,4 @@
-import React, { useContext  } from "react";
+import React, { useContext } from "react";
 import { MoviesContext } from "../../contexts/moviesContext";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
@@ -19,7 +19,7 @@ import TranslateIcon from '@mui/icons-material/Translate';
 export default function TvCard({ tv, action }) {
   const { favorites, addToFavorites } = useContext(MoviesContext);
 
-  const isFav = favorites.find((id) => id === tv.id) != null; 
+  const isFav = favorites.find((id) => id === tv.id) != null;
 
   const handleAddToFavorite = (e) => {
     e.preventDefault();
@@ -41,7 +41,7 @@ export default function TvCard({ tv, action }) {
     }}>
       <CardHeader
         avatar={
-            isFav ? (
+          isFav ? (
             <Avatar sx={{ backgroundColor: 'red' }}>
               <FavoriteIcon />
             </Avatar>
@@ -57,7 +57,7 @@ export default function TvCard({ tv, action }) {
       <CardMedia
         sx={{ height: 500 }}
         image={
-            tv.poster_path
+          tv.poster_path
             ? `https://image.tmdb.org/t/p/w500/${tv.poster_path}`
             : img
         }
@@ -67,28 +67,28 @@ export default function TvCard({ tv, action }) {
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <CalendarIcon fontSize="small" />
-             {" "}{tv.first_air_date ?? "N/A"}
+              {" "}{tv.first_air_date ?? "N/A"}
             </Typography>
           </Grid>
 
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <LocalFireDepartmentIcon fontSize="small" />
-             {" "}{tv.popularity ?? "N/A"}
+              {" "}{tv.popularity ?? "N/A"}
             </Typography>
           </Grid>
 
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <ThumbUpOffAltIcon fontSize="small" />
-             {" "}{tv.vote_count ?? "N/A"}
+              {" "}{tv.vote_count ?? "N/A"}
             </Typography>
           </Grid>
 
           <Grid size={{ xs: 6 }}>
             <Typography variant="h6" component="p">
               <TranslateIcon fontSize="small" />
-             {" "}{tv.original_language ?? "N/A"}
+              {" "}{tv.original_language ?? "N/A"}
             </Typography>
           </Grid>
 
@@ -103,11 +103,11 @@ export default function TvCard({ tv, action }) {
         </Grid>
       </CardContent>
       <CardActions disableSpacing>
-      
- 
-    
-      
-    </CardActions>
+
+
+
+
+      </CardActions>
 
     </Card>
   );
