@@ -4,31 +4,31 @@ import { MoviesContext } from "../contexts/moviesContext";
 import { useQueries } from "@tanstack/react-query";
 import { getWatchlist } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
-import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
+import RemoveFromWatchlist from "../components/cardIcons/removeFromWatchlist";
 import WriteReview from "../components/cardIcons/writeReview";
 
 
 const WatchlistPage = () => {
-  const {favorites: movieIds } = useContext(MoviesContext);
+  const {watchlist: movieIds } = useContext(MoviesContext);
 
   // Create an array of queries and run in parallel.
-  const favoriteMovieQueries = useQueries({
+  const watchlistQueries = useQueries({
     queries: movieIds.map((movieId) => {
       return {
-        queryKey: ['watchlist', { id: movieId }],
+        queryKey: ['movie', { id: movieId }],
         queryFn: () => getWatchlist(movieId),
       }
     })
   });
-  
+
   // Check if any of the parallel queries is still loading.
-  const isPending = favoriteMovieQueries.find((m) => m.isPending === true);
+  const isPending = watchlistQueries.find((m) => m.isPending === true);
 
   if (isPending) {
     return <Spinner />;
   }
 
-  const movies = favoriteMovieQueries
+  const movies = watchlistQueries
   .filter((q) => q.data)
   .map((q) => {
     const movie = q.data;
@@ -36,7 +36,6 @@ const WatchlistPage = () => {
     return movie;
   });
 
-  const toDo = () => true;
 
   return (
     <PageTemplate
@@ -45,7 +44,7 @@ const WatchlistPage = () => {
       action={(movie) => {
         return (
           <>
-            <RemoveFromFavorites movie={movie} />
+            <RemoveFromWatchlist movie={movie} />
             <WriteReview movie={movie} />
           </>
         );
