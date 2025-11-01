@@ -4,6 +4,9 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
+import { Breadcrumbs } from "@mui/material";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 
 const UpcomingMoviesPage = (props) => {
@@ -28,13 +31,20 @@ const UpcomingMoviesPage = (props) => {
   localStorage.setItem('favorites', JSON.stringify(favorites))
 
   return (
-    <PageTemplate
-      title="Upcoming Movies"
-      movies={movies}
-      action={(movie) => {
-        return <AddToFavoritesIcon movie={movie} />
-      }}
-    />
+    <>
+      <Breadcrumbs aria-label="breadcrumb" sx={{ padding: "16px" }}>
+        <Link underline="hover" href="/">Home</Link>
+        <Link underline="hover" href="/movies">Movies</Link>
+        <Typography color="text.primary">Upcoming Movies</Typography>
+      </Breadcrumbs>
+      <PageTemplate
+        title="Upcoming Movies"
+        movies={movies}
+        action={(movie) => {
+          return <AddToFavoritesIcon movie={movie} />
+        }}
+      />
+    </>
   );
 
 };

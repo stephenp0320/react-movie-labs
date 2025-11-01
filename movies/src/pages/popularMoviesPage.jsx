@@ -5,6 +5,9 @@ import Header from "../components/headerMovieList";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import Container from "@mui/material/Container";
+import { Breadcrumbs } from "@mui/material";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 const PopularMoviesPage = (props) => {
 
@@ -39,6 +42,11 @@ const PopularMoviesPage = (props) => {
 
         }}>
             <>
+                <Breadcrumbs aria-label="breadcrumb" sx={{ padding: "16px" }}>
+                    <Link underline="hover" href="/">Home</Link>
+                    <Link underline="hover" href="/movies">Movies</Link>
+                    <Typography color="text.primary">Popular Movies</Typography>
+                </Breadcrumbs>
                 <Header title="Popular Movies" />
                 <MovieList movies={movies} action={() => <></>} />
             </>
