@@ -4,7 +4,9 @@ import FilterCard from "../filterMoviesCard";
 import TvList from "../tvList";
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
-
+import { Breadcrumbs } from "@mui/material";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 function TvListPageTemplate({ shows = [], title, action }) { // changed movies to shows =[] to default to empty array
     const [nameFilter, setNameFilter] = useState("");
@@ -68,6 +70,10 @@ function TvListPageTemplate({ shows = [], title, action }) { // changed movies t
         <Grid container>
             <Grid size={12}>
                 <Header title={title} />
+                <Breadcrumbs sx={{ ml: 3, mt: 1, mb: 1 }}>
+                <Link underline="hover" href="/">Home</Link>
+                <Typography color="text.primary">{title}</Typography>
+                </Breadcrumbs>
             </Grid>
             <Grid container sx={{ flex: "1 1 500px" }}>
 
