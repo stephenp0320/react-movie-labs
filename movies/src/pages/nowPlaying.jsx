@@ -5,6 +5,9 @@ import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 import AddToWatchlistIcon from "../components/cardIcons/addToWatchlist";
+import { Breadcrumbs } from "@mui/material";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 const NowPlaying = (props) => {
 
@@ -28,16 +31,23 @@ const NowPlaying = (props) => {
   localStorage.setItem('favorites', JSON.stringify(favorites))
 
   return (
-    <PageTemplate
-      title="Movies Now Playing in theaters"
-      movies={movies}
-      action={(movie) => (
-        <>
-          <AddToFavoritesIcon movie={movie} />
-          <AddToWatchlistIcon movie={movie} />
-        </>
-      )}
-    />
+    <>
+      <Breadcrumbs aria-label="breadcrumb" sx={{ padding: "16px" }}>
+        <Link underline="hover" href="/">Home</Link>
+        <Link underline="hover" href="/movies">Movies</Link>
+        <Typography color="text.primary">Now Playing</Typography>
+      </Breadcrumbs>
+      <PageTemplate
+        title="Movies Now Playing in theaters"
+        movies={movies}
+        action={(movie) => (
+          <>
+            <AddToFavoritesIcon movie={movie} />
+            <AddToWatchlistIcon movie={movie} />
+          </>
+        )}
+      />
+    </>
   );
 
 };

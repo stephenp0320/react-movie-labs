@@ -69,11 +69,11 @@ function TvListPageTemplate({ shows = [], title, action }) { // changed movies t
     return (
         <Grid container>
             <Grid size={12}>
-                <Header title={title} />
-                <Breadcrumbs sx={{ ml: 3, mt: 1, mb: 1 }}>
-                <Link underline="hover" href="/">Home</Link>
-                <Typography color="text.primary">{title}</Typography>
+                <Breadcrumbs aria-label="breadcrumb" sx={{ padding: "16px" }}>
+                    <Link underline="hover" href="/">Home</Link>
+                    <Typography color="text.primary">{title}</Typography>
                 </Breadcrumbs>
+                <Header title={title} />
             </Grid>
             <Grid container sx={{ flex: "1 1 500px" }}>
 

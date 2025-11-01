@@ -6,7 +6,9 @@ import { getWatchlist } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
 import RemoveFromWatchlist from "../components/cardIcons/removeFromWatchlist";
 import WriteReview from "../components/cardIcons/writeReview";
-
+import { Breadcrumbs } from "@mui/material";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 const WatchlistPage = () => {
   const { watchlist: movieIds } = useContext(MoviesContext);
@@ -38,18 +40,25 @@ const WatchlistPage = () => {
 
 
   return (
-    <PageTemplate
-      title="User Watchlist"
-      movies={movies}
-      action={(movie) => {
-        return (
-          <>
-            <RemoveFromWatchlist movie={movie} />
-            <WriteReview movie={movie} />
-          </>
-        );
-      }}
-    />
+    <>
+      <Breadcrumbs aria-label="breadcrumb" sx={{ padding: "16px" }}>
+        <Link underline="hover" href="/">Home</Link>
+        <Link underline="hover" href="/movies">Movies</Link>
+        <Typography color="text.primary">Watchlist</Typography>
+      </Breadcrumbs>
+      <PageTemplate
+        title="User Watchlist"
+        movies={movies}
+        action={(movie) => {
+          return (
+            <>
+              <RemoveFromWatchlist movie={movie} />
+              <WriteReview movie={movie} />
+            </>
+          );
+        }}
+      />
+    </>
   );
 
 };

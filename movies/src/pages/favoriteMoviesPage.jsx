@@ -6,7 +6,9 @@ import { getMovie } from "../api/tmdb-api";
 import Spinner from '../components/spinner'
 import RemoveFromFavorites from "../components/cardIcons/removeFromFavorites";
 import WriteReview from "../components/cardIcons/writeReview";
-
+import { Breadcrumbs } from "@mui/material";
+import Link from "@mui/material/Link";
+import Typography from "@mui/material/Typography";
 
 const FavoriteMoviesPage = () => {
   const { favorites: movieIds } = useContext(MoviesContext);
@@ -36,18 +38,25 @@ const FavoriteMoviesPage = () => {
   const toDo = () => true;
 
   return (
-    <PageTemplate
-      title="Favorite Movies"
-      movies={movies}
-      action={(movie) => {
-        return (
-          <>
-            <RemoveFromFavorites movie={movie} />
-            <WriteReview movie={movie} />
-          </>
-        );
-      }}
-    />
+    <>
+      <Breadcrumbs aria-label="breadcrumb" sx={{ padding: "16px" }}>
+        <Link underline="hover" href="/">Home</Link>
+        <Link underline="hover" href="/movies">Movies</Link>
+        <Typography color="text.primary">Favorites</Typography>
+      </Breadcrumbs>
+      <PageTemplate
+        title="Favorite Movies"
+        movies={movies}
+        action={(movie) => {
+          return (
+            <>
+              <RemoveFromFavorites movie={movie} />
+              <WriteReview movie={movie} />
+            </>
+          );
+        }}
+      />
+    </>
   );
 
 };
