@@ -28,17 +28,17 @@ const SiteHeader = () => {
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
-    { label: "Upcoming", path: "/movies/upcoming" },
-    { label: "Popular", path: "/movies/popular" },
+    //{ label: "Popular", path: "/movies/popular" },
     { label: "Watchlist", path: "/watchlist/movies" },
   ];
 
 
   const subMenuOptions = [
     { label: "Now Playing", path: "/movies/nowplaying" },
+    { label: "Popular", path: "/movies/popular" },
     { label: "Tv", path: "/movies/Tv" },
-    { label: "On Air", path: "/movies/air" },
-    { label: "Recommendations", path: "/movies/:id/recommendations" },
+    { label: "Upcoming", path: "/movies/upcoming" },
+   
   ]
 
   const handleMenuSelect = (pageURL) => {

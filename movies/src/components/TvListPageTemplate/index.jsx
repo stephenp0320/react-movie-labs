@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Header from "../headerMovieList";
 import FilterCard from "../filterMoviesCard";
-import MovieList from "../movieList";
+import TvList from "../tvList";
 import Grid from "@mui/material/Grid";
 import Pagination from "@mui/material/Pagination";
 
-function MovieListPageTemplate({ movies, title, action, isTv }) {
+
+function TvListPageTemplate({ shows=[], title, action }) { // changed movies to shows =[] to default to empty array
   const [nameFilter, setNameFilter] = useState("");
   const [genreFilter, setGenreFilter] = useState("0");
   const [minRating, setMinRating] = useState(0);
@@ -15,10 +16,10 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
   const [page, setPage] = useState(1);
   const pageSize = 20;
 
-  const get_title = (m) => (m.title ?? m.name ?? "")
-  const maxPopularity = Math.max(1000, ...movies.map((m) => Number(m.popularity || 0)));
+  const get_title = (m) => (m.name ?? m.title ?? "")
+  const maxPopularity = Math.max(1000, ...shows.map((m) => Number(m.popularity || 0)));
 
-  let displayedMovies = movies
+  let displayedShows = shows
     .filter((m) => {
       return get_title(m).toLowerCase().includes(nameFilter.toLowerCase());
     })
@@ -35,33 +36,25 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
 
   if (sortKey === "title") {
-    displayedMovies = displayedMovies.sort((a, b) => {
+    displayedShows = displayedShows.sort((a, b) => {
       return get_title(a).localeCompare(get_title(b));
     });
-  } else if (sortKey === "release_date") {
-    displayedMovies = displayedMovies.sort((a, b) => {
-      return new Date(b.release_date) - new Date(a.release_date);
-    });
   } else if (sortKey === "popularity") {
-    displayedMovies = displayedMovies.sort((a, b) => {
+    displayedShows = displayedShows.sort((a, b) => {
       return (b.popularity || 0) - (a.popularity || 0);
     });
   } else if (sortKey === "rating") { //sorts by decending order
-    displayedMovies = displayedMovies.sort((a, b) => {
+    displayedShows = displayedShows.sort((a, b) => {
       return (b.vote_average || 0) - (a.vote_average || 0);
     });
-  } else if (sortKey === "vote_count") {
-    displayedMovies = displayedMovies.sort((a, b) => {
-      return (b.vote_count || 0) - (a.vote_count || 0);
-    });
-  }
+}
 
   // Math.ceil rounds up to the nearest integer
   // slice extracts a section of an array and returns it as a new array
   // from mdn web docs https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/ceil
   //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
-  const pageCnt = Math.ceil(displayedMovies.length / pageSize);
-  const pagedMovies = displayedMovies.slice((page - 1) * pageSize, page * pageSize);
+  const pageCnt = Math.ceil(displayedShows.length / pageSize);
+  const pagedMovies = displayedShows.slice((page - 1) * pageSize, page * pageSize);
 
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
@@ -91,7 +84,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
             titleFilter={nameFilter}
             genreFilter={genreFilter}
             sortKey={sortKey}
-            isTv={isTv}
+            isTv={true}
             minRating={minRating}
             minPopularity={minPopularity}
             maxPopularity={maxPopularity}
@@ -99,7 +92,7 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
         </Grid>
 
 
-        <MovieList action={action} movies={pagedMovies} isTv={isTv}></MovieList>
+        <TvList action={action} shows={pagedMovies}></TvList>
 
         {/* https://mui.com/material-ui/react-pagination/ */}
         {pageCnt > 1 && (
@@ -114,4 +107,4 @@ function MovieListPageTemplate({ movies, title, action, isTv }) {
     </Grid>
   );
 }
-export default MovieListPageTemplate;
+export default TvListPageTemplate;

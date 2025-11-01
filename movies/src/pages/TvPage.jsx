@@ -1,11 +1,12 @@
 import React from "react";
 import { getTv } from "../api/tmdb-api";
-import PageTemplate from '../components/templateMovieListPage';
+import TvListPageTemplate from "../components/TvListPageTemplate"; 
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
-
-
+import Header from "../components/headerMovieList";
+import TvList from "../components/tvList";
+import { Container } from "@mui/material";
 const TvPage = (props) => {
 
   const { data, error, isPending, isError } = useQuery({
@@ -19,20 +20,17 @@ const TvPage = (props) => {
     return <h1>{error.message}</h1>
   }
   
-  const movies = data.results;
+  const shows = data?.results || [];
 
   // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter(m => m.favorite)
+  const favorites = shows.filter(m => m.favorite)
   localStorage.setItem('favorites', JSON.stringify(favorites))
 
   return (
-    <PageTemplate
-      title="Tv Shows"
-      movies={movies}
-      isTv={true}
-      action={(movie) => {
-        return <AddToPlaylistIcon movie={movie} />
-      }}
+    <TvListPageTemplate
+      title="TV Shows"
+      shows={shows}
+      action={(tv) => <AddToPlaylistIcon tv={tv} />}
     />
   );
 

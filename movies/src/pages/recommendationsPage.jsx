@@ -4,12 +4,13 @@ import PageTemplate from '../components/templateMovieListPage';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner';
 import AddToPlaylistIcon from '../components/cardIcons/addToPlaylist'
-
+import { useParams } from "react-router";
 
 const RecommendationsPage = (props) => {
 
     const {id} = useParams();
     const num_id = Number(id);
+    console.log("RecommendationsPage id:", id, "num_id:", num_id);
 
   const { data, error, isPending, isError  } = useQuery({
     queryKey: ['recommendations', num_id],

@@ -55,7 +55,7 @@ export default function TvCard({ tv, action }) {
       />
 
       <CardMedia
-        sx={{ height: 300, width: 300 }}
+        sx={{ height: 500 }}
         image={
             tv.poster_path
             ? `https://image.tmdb.org/t/p/w500/${tv.poster_path}`
